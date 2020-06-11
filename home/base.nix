@@ -38,6 +38,10 @@ with pkgs;
     nix-prefetch-git
     nix-prefetch-github
     figlet
+    htop
+    ytop
+    wget
+    curl
   ];
 
 }
