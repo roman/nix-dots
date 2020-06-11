@@ -22,7 +22,7 @@ in {
   home-manager.users.roman = { pkgs, ... }: {
     imports =  [ ../home ];
     nixpkgs = {
-      overlay = [ overlay-pkgs ];
+      overlays = [ overlay-pkgs ];
       config.packageOverrides = with pkgs; {
         
       };
