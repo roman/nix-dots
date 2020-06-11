@@ -7,6 +7,7 @@ let
 in
   {
     imports = [ 
+      "${sources.home-manager}/nixos" 
       ../modules  
       ./users.nix
     ];
