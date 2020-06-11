@@ -1,0 +1,51 @@
+{
+    "emacs-overlay": {
+        "branch": "master",
+        "description": "Bleeding edge emacs overlay [maintainer=@adisbladis] ",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "f798ec881b6e63673b92190fc21b4d2a8e69d35a",
+        "sha256": "16x5m8hb9hl75vpwzcbd7rc5kq7xm22c7gzridygp38jzz2lwgwr",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/f798ec881b6e63673b92190fc21b4d2a8e69d35a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix",
+        "homepage": "",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "7f748f27bcc7602f9e050dee349bf5805d25a12c",
+        "sha256": "19k2f25087dq6lrdnqplgmdhsrh7ymzw5y6fkaq5c09bcqh1f6cm",
+        "type": "tarball",
+        "url": "https://github.com/rycee/home-manager/archive/7f748f27bcc7602f9e050dee349bf5805d25a12c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "50600603b51432839c4b6267fd6a0d00ae6b0451",
+        "sha256": "1rrhlscbqdn9a77ws49acl536n3mz6bai68z08mpg8qqa4ahr2sn",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/50600603b51432839c4b6267fd6a0d00ae6b0451.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-direnv": {
+        "branch": "master",
+        "description": "A fast, persistent use_nix implementation for direnv [maintainer=@Mic92] ",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "nix-direnv",
+        "rev": "f9889758694bdfe11251ac475d78a93804dbd93c",
+        "sha256": "16mpc6lidmn6annyl4skdixzx7syvwdj9c5la0sidg57l8kh1rqd",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/nix-direnv/archive/f9889758694bdfe11251ac475d78a93804dbd93c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
+
