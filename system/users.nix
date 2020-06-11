@@ -18,7 +18,7 @@ in {
     imports =  [ ../home ];
     nixpkgs = {
       overlay = [ overlay-pkgs ];
-      config.packageOverrides = pkgs; {
+      config.packageOverrides = with pkgs; {
         
       };
     };
