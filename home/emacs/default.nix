@@ -59,7 +59,7 @@ in {
         magic-latex-buffer
         magit
         markdown-mode
-        navorski
+        nix-mode
         no-littering
         org-ref
         org-super-agenda

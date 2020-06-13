@@ -1,4 +1,4 @@
-;;; zoo-modules.el --- Zoo module configuration -*- lexical-binding: t -*-
+;;; zoo-nix.el --- Zoo nix configuration -*- lexical-binding: t -*-
 
 ;; This file is not part of GNU Emacs
 
@@ -17,27 +17,12 @@
 
 
 ;;; Commentary:
-;; Load all our precious modules.
 
 ;;; Code:
 
-;;; Functions
-(defun zoo--byte-compile-module-dir ()
-  "Byte compile all modules that Zoo bundles."
-  (interactive)
-  (byte-recompile-directory zoo-module-dir 0 t))
+;;; nix
+(use-package nix-mode)                                  ;; Highlight code using the languages major mode
 
-;;; Add all the languages to the load path
-(eval-and-compile
-  (add-to-list 'load-path zoo-module-dir t))
+(provide 'zoo-nix)
 
-;;; Load modules
-;; (require 'zoo-elisp)
-;; (require 'zoo-latex)
-;; (require 'zoo-markdown)
-(require 'zoo-nix)
-
-(provide 'zoo-modules)
-
-;;; zoo-modules.el ends here
-
+;;; zoo-nix.el ends here
