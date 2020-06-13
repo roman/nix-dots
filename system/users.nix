@@ -10,7 +10,7 @@ in {
   users.users.roman = {
     description = "Roman Gonzalez";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "kvm" ];
+    extraGroups = [ "users" "wheel" "docker" "kvm" ];
     home = "/home/roman";
     createHome = true;
     openssh.authorizedKeys.keys = [
@@ -29,5 +29,6 @@ in {
       };
     };
   };
+
 
 }
