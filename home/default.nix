@@ -3,6 +3,7 @@
 {
   imports = [
     ./base.nix
+    ./emacs
     ./git.nix 
   ];
 }
