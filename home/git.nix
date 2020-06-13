@@ -15,10 +15,11 @@
       d = "diff";
       dc = "diff --cached";
       cam = "commit --amend --no-edit";
-      lg =
-        "log --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+      lg = "log --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
       r = "remote -v";
-      s = "status";
+      st = "status";
+      co = "checkout";
+      ci = "commit";
     };
 
     # extraConfig = {
@@ -32,7 +33,8 @@
     #   };
     #   rebase = { autosquash = "true"; };
     # };
-    # ignores = [ ".envrc" ".direnv/" ];
+
+    ignores = [ ".direnv/" ];
   };
 }
 
