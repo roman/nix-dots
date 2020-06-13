@@ -29,6 +29,7 @@ with pkgs;
   };
  
   home.packages = [
+    (aspellWithDicts (ps: with ps; [ en es ]))
     jq
     exa
     niv

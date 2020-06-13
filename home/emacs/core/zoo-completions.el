@@ -1,4 +1,4 @@
-;;; zoo-completion.el --- Zoo completion configuration -*- lexical-binding: t -*-
+;;; zoo-completions.el --- Zoo completion configuration -*- lexical-binding: t -*-
 
 ;; This file is not part of GNU Emacs
 
@@ -157,7 +157,6 @@
 (use-package ivy-yasnippet
   :after yasnippet)
 
-(provide 'zoo-completion)
+(provide 'zoo-completions)
 
 ;;; zoo-completion.el ends here
-

@@ -13,6 +13,7 @@ in {
     extraPackages = (epkgs:
       (with epkgs.elpaPackages; [ aggressive-indent auctex delight undo-tree ])
       ++ (with epkgs.melpaPackages; [
+        all-the-icons
         amx
         apropospriate-theme
         auctex-latexmk
@@ -29,6 +30,8 @@ in {
         deadgrep
         diff-hl
         direnv
+        doom-modeline
+        doom-themes
         ebib
         evil
         evil-collection
@@ -56,6 +59,7 @@ in {
         magic-latex-buffer
         magit
         markdown-mode
+        navorski
         no-littering
         org-ref
         org-super-agenda

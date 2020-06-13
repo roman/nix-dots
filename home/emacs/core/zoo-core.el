@@ -181,9 +181,9 @@ BODY is a list of the variables to be set."
 (require 'zoo-system)
 (require 'zoo-evil)
 (require 'zoo-editor)
-(require 'zoo-completion)
+(require 'zoo-completions)
 (require 'zoo-projects)
-(require 'zoo-filechecking)
+(require 'zoo-filecheck)
 ;; (require 'zoo-git)
 ;; (require 'zoo-ui)
 
@@ -192,11 +192,10 @@ BODY is a list of the variables to be set."
 (require 'zoo-modules (expand-file-name "zoo-modules" zoo-module-dir))
 
 ;;;; Load the org configuration
-(require 'zoo-org (expand-file-name "zoo-org" zoo-org-dir))
+;; (require 'zoo-org (expand-file-name "zoo-org" zoo-org-dir))
 
 ;;;; Load the utilities
-(require 'zoo-utils (expand-file-name "zoo-utils" zoo-util-dir))
-
+;; (require 'zoo-utils (expand-file-name "zoo-utils" zoo-util-dir))
 
 (provide 'zoo-core)
 

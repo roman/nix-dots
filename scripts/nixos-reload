@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export NIXOS_CONFIG="/etc/config/hosts/$(hostname)/default.nix" 
+nixos-rebuild switch --show-trace

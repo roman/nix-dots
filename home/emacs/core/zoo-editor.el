@@ -211,6 +211,24 @@
   (toggle-truncate-lines t)
   (visual-line-mode 0))
 
+(use-package doom-modeline
+  :config
+  (progn
+    (setq doom-modeline-unicode-fallback nil))
+  :init
+  (doom-modeline-mode 1))
+
+(use-package doom-themes
+  :init
+  (progn
+    (load-theme 'doom-gruvbox t)
+    (doom-themes-org-config)))
+
+(use-package navorski
+  :general
+  (zoo-leader
+    "'" 'nav/term))
+
 (use-package vterm
   :commands (vterm)
   :ghook ('vterm-mode-hook (lambda ()
