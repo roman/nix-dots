@@ -224,11 +224,6 @@
     (load-theme 'doom-gruvbox t)
     (doom-themes-org-config)))
 
-(use-package navorski
-  :general
-  (zoo-leader
-    "'" 'nav/term))
-
 (use-package vterm
   :commands (vterm)
   :ghook ('vterm-mode-hook (lambda ()

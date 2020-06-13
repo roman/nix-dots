@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 with pkgs;
 
@@ -30,17 +30,6 @@ with pkgs;
       tree = "exa --tree --git-ignore";
     };
 
-    bash = {
-      enable = true;
-      shellAliases = {
-        fzp = ''fzf --preview "bat --color=always {}"'';
-        cat = "bat";
-        ll = "exa -lagFT --git-ignore --git --level 1";
-        tree = "exa --tree --git-ignore";
-      };
-
-    };
-
     starship = {
       enable = true;
       enableBashIntegration = true;
@@ -54,6 +43,17 @@ with pkgs;
       enable = true;
       enableBashIntegration = true;
       enableNixDirenvIntegration = true;
+    };
+
+    bash = {
+      enable = true;
+      shellAliases = {
+        fzp = ''fzf --preview "bat --color=always {}"'';
+        cat = "bat";
+        ll = "exa -lagFT --git-ignore --git --level 1";
+        tree = "exa --tree --git-ignore";
+      };
+      initExtra = lib.mkAfter (builtins.readFile ./bashrc);
     };
 
   };

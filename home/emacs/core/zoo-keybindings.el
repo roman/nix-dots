@@ -89,6 +89,7 @@ current window."
 (zoo-leader
   "SPC" '(counsel-M-x :wk "M-x")
   "TAB" 'zoo/alternate-buffer
+  "'"   'vterm
   "a" '(:ignore t :wk "applications")
   "b" '(:ignore t :wk "buffers")
   "f" '(:ignore t :wk "files")
