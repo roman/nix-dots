@@ -10,6 +10,7 @@ in
       "${sources.home-manager}/nixos" 
       ../modules  
       ./users.nix
+      ./virtualisation.nix
     ];
   
   }
