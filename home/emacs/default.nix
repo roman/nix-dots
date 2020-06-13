@@ -69,6 +69,7 @@ in {
         smartparens
         swiper
         use-package
+        vterm
         which-key
         ws-butler
         yasnippet
