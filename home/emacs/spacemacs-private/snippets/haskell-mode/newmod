@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# key: newmod
+# name: new module body
+# condition: (= (length "newmod") (current-column))
+# contributor: Roman Gonzalez <open-source@roman-gonzalez.info>
+# --
+{-# LANGUAGE NamedFieldPuns    #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+module `(haskell-guess-module-name)` where
+
+import RIO
+
+$0

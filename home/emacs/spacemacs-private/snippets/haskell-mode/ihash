@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ihash
+# key: ihash
+# --
+import qualified RIO.HashMap as HashMap

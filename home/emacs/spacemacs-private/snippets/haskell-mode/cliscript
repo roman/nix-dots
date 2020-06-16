@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# key: cliscript
+# name: new haskell CLI script
+# condition: (= (length "cliscript") (current-column))
+# contributor: Roman Gonzalez <open-source@roman-gonzalez.info>
+# --
+#!/usr/bin/env stack
+{- stack --resolver nightly-2018-05-02 script --package rio --package typed-process --package optparse-generic -}
+
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeOperators     #-}
+{-# LANGUAGE DataKinds         #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE NamedFieldPuns    #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+
+import RIO
+import Options.Generic
+import System.Process.Typed
+
+data Args w =
+  Args
+  {
+    greeting :: w ::: Text <?> "How do you greet?"
+  }
+  deriving (Generic)
+
+instance ParseRecord (Args Wrapped)
+
+main :: IO ()
+main = do
+  logOptions <- logOptionsHandle stdout False
+  withLogFunc logOptions $ \logFun -> runRIO logFun $ do
+    Args { greeting } <- unwrapRecord "application"
+    logInfo $ display greeting

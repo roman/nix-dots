@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# key: bmscript
+# name: new benchmark module
+# condition: (= (length "bmscript") (current-column))
+# contributor: Roman Gonzalez <open-source@roman-gonzalez.info>
+# --
+#!/usr/bin/env stack
+{- stack --resolver lts-11 script --optimize --package rio --package gauge -}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+module `(haskell-guess-module-name)` where
+
+import RIO
+import Gauge
+
+main :: IO ()
+main =
+  defaultMain
+    $ map (\ (category, input) ->
+        bgroup category
+          [
+            -- bench "a benchmark" $ whnf myFn input
+          ]
+        )
+        [
+          -- ("input category", inputValues)
+        ]

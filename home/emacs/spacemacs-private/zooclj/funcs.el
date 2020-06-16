@@ -1,0 +1,25 @@
+(defun zooclj/lisp-lang-after-hook ()
+  (paredit-mode 1)
+  (evil-paredit-mode 1)
+  (smartparens-mode -1))
+
+(defun zooclj/clojure-after-hook ()
+  (paredit-mode 1)
+  (evil-paredit-mode 1)
+  (smartparens-mode -1))
+
+(defun zooclj/cider-switch-and-load ()
+  (interactive)
+  (let* ((repl-buffer (cider-current-repl-buffer))
+         (repl-ns (and repl-buffer (with-current-buffer repl-buffer
+                                     cider-buffer-ns)))
+         (buffer-ns (cider-current-ns)))
+    (when (not (string= repl-ns buffer-ns))
+      (cider-repl-set-ns buffer-ns))
+    (cider-load-file (buffer-file-name))
+    (cider-switch-to-repl-buffer)))
+
+(defun zooclj/cider-load-and-test ()
+  (interactive)
+  (cider-load-file (buffer-file-name))
+  (cider-test-run-test))

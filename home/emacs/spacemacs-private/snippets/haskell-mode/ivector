@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ivector
+# key: ivector
+# --
+import qualified RIO.Vector as Vector

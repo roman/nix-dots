@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ijson
+# key: ijson
+# --
+import qualified Data.Aeson as JSON

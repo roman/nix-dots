@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# key: newmod
+# name: new module body
+# condition: (= (length "testmod") (current-column))
+# contributor: Roman Gonzalez <open-source@roman-gonzalez.info>
+# --
+{-# LANGUAGE NamedFieldPuns    #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+module `(haskell-guess-module-name)` where
+
+import RIO
+
+import Test.Hspec
+import qualified `(haskell-guess-module-name)` as SUT
+
+spec :: Spec
+spec = do
+  describe "$0" pending

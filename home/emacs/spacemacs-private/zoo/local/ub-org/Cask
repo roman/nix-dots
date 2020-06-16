@@ -1,0 +1,12 @@
+(source gnu)
+(source melpa)
+
+(package "ub-org" "0.0.1"
+         "Integration of org + jira + utilities")
+
+(package-file "ub-org.el")
+
+(development
+  (depends-on "dash" "2.12.1")
+  (depends-on "org-jira" "0.1")
+  (depends-on "projectile" "0.13.0"))
