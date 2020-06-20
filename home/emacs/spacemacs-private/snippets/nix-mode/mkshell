@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: mkshell
+# key: mkshell
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+let
+  pinnedPkgs = import ./nix/pkgs.nix;
+in
+
+{ pkgs ? pinnedPkgs }:
+
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    figlet
+  ];
+
+  shellHook = ''
+  '';
+}
