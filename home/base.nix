@@ -16,7 +16,7 @@ with pkgs;
         style = "numbers,changes";
       };
     };
-    
+
     fzf = {
       enable = true;
       changeDirWidgetCommand = "fd --type d";
@@ -48,16 +48,16 @@ with pkgs;
     bash = {
       enable = true;
       shellAliases = {
-        fzp = ''fzf --preview "bat --color=always {}"'';
-        cat = "bat";
-        ll = "exa -lagFT --git-ignore --git --level 1";
+        fzp  = ''fzf --preview "bat --color=always {}"'';
+        cat  = "bat";
+        ll   = "exa -lagFT --git-ignore --git --level 1";
         tree = "exa --tree --git-ignore";
       };
       initExtra = lib.mkAfter (builtins.readFile ./bashrc);
     };
 
   };
- 
+
   home.packages = [
     (aspellWithDicts (ps: with ps; [ en es ]))
 
