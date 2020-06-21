@@ -4,6 +4,6 @@
   imports = [
     ./base.nix
     ./emacs
-    ./git.nix 
+    ./git.nix
   ];
 }

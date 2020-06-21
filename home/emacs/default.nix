@@ -10,7 +10,11 @@ in {
     enable = true;
     package = pkgs.emacs-nox;
     extraPackages = (epkgs:
-      [ epkgs.melpaPackages.vterm ]
+      [ epkgs.melpaPackages.vterm
+        epkgs.melpaPackages.lsp-mode
+        epkgs.melpaPackages.lsp-ui
+        epkgs.melpaPackages.dap-mode
+      ]
     );
   };
 
