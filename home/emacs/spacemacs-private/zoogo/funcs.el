@@ -17,10 +17,6 @@
 (defvar zoogo/current-test-file nil)
 (defvar zoogo/current-test-function nil)
 
-(defvar zoogo/active-after-save-color  "#8A2BE2")
-(defvar zoogo/test-success-color "#6AAF6A")
-(defvar zoogo/test-failed-color  "#FF6347")
-
 (defun zoogo/reset-stored-test-function ()
   "Resets the assigned current test to nil"
   (interactive)

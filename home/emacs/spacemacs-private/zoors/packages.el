@@ -7,12 +7,13 @@
            (configuration-layer/layer-usedp 'rust))
 
   (defun zoors/pre-init-cargo ()
-    (spacemacs|use-package-add-hook cargo
+    (spacemacs|use-package-add-hook rust-mode
       :post-init
       (progn
         (require 'cargo)
         ;; reset pre-defined keybindings
         (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+          "cb" 'zoors/cargo-build
           "t"   nil
           "ct"  nil)
         ;; define keybinding prefixes
@@ -24,8 +25,7 @@
           ","   'zoors/cargo-process-current-test
           "stt" 'zoors/toggle-run-stored-test-function-after-save
           "tt"  'zoors/cargo-process-current-test
-          "tf"  'zoors/cargo-process-current-file-tests)
-        )
+          "tf"  'zoors/cargo-process-current-file-tests))
       )
     )
 )

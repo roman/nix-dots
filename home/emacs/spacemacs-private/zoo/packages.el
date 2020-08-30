@@ -23,6 +23,7 @@
           (kbd "C-u") 'vterm-send-C-u)
         (evil-define-key 'insert vterm-mode-map
           (kbd "C-l") 'vterm-clear
+          (kbd "C-k") 'vterm-send-C-k
           (kbd "C-r") 'vterm-send-C-r
           (kbd "C-d") 'vterm-send-C-d
           (kbd "C-e") 'vterm-send-C-e

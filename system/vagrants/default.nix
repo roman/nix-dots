@@ -6,12 +6,12 @@ let
   sources = import ../../nix/sources.nix;
 in
   {
-    imports = [ 
-      "${sources.home-manager}/nixos" 
-      ../../modules  
+    imports = [
+      "${sources.home-manager}/nixos"
+      ../../modules
       ../virtualisation.nix
       ./vagrant-network.nix
       ./vagrant-users.nix
     ];
-  
+
   }

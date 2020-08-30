@@ -29,6 +29,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;###autoload
+(defun zoors/cargo-build ()
+  (interactive)
+  (zoo/flash-mode-line zoo/active-after-save-color 0.5)
+  (compile "cargo build"))
+
+;;;###autoload
 (defun zoors/cargo-process-current-test ()
   (interactive)
   (setq zoors/current-test-function (cargo-process--get-current-test-fullname))

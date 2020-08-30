@@ -66,9 +66,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defvar zoo/active-after-save-color  "#8A2BE2")
+(defvar zoo/test-success-color "#6AAF6A")
+(defvar zoo/test-failed-color  "#FF6347")
+
+
 (defvar zoo-mode-line-in-use nil
   "Private var to check usage of mode-line before changing")
-
 
 (defvar zoo-mode-line-usage-delay 0.5
   "Number of secs before trying to modify the mode-line again.")
@@ -313,7 +317,6 @@ Example output:
           ;; else
           t)))
 
-
 (defun zoo/show-compilation-window ()
   (interactive)
   (when compilation-last-buffer
@@ -331,10 +334,10 @@ Example output:
           (when zoo/hide-on-compile-success
             (when w
               (delete-window w)))
-          (zoo/flash-mode-line zoogo/test-success-color 0.6))
+          (zoo/flash-mode-line zoo/test-success-color 1))
       ;; else
       (progn
-        (zoo/flash-mode-line zoogo/test-failed-color 0.6)
+        (zoo/flash-mode-line zoo/test-failed-color 1)
         (unless w
           (display-buffer buff)))
       )
