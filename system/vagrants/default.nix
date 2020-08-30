@@ -10,7 +10,6 @@ in
       "${sources.home-manager}/nixos" 
       ../../modules  
       ../virtualisation.nix
-      ./vagrant-hostname.nix
       ./vagrant-network.nix
       ./vagrant-users.nix
     ];
