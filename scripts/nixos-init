@@ -4,3 +4,8 @@ nix-channel --remove nixos
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pushd $DIR/..
+sudo ln -s "$(pwd)" /etc/config
+popd
