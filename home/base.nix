@@ -6,6 +6,7 @@ with pkgs;
 
   programs = {
 
+    # home-manager.enable = true;
     zoxide.enable = true;
     man.enable = true;
 
@@ -39,6 +40,8 @@ with pkgs;
       };
     };
 
+    dircolors.enable = true;
+
     direnv = {
       enable = true;
       enableBashIntegration = true;
@@ -51,9 +54,11 @@ with pkgs;
         fzp  = ''fzf --preview "bat --color=always {}"'';
         cat  = "bat";
         ll   = "exa -lagFT --git-ignore --git --level 1";
+        ls = "exa -a --git-ignore";
         tree = "exa --tree --git-ignore";
       };
-      initExtra = lib.mkAfter (builtins.readFile ./bashrc);
+      bashrcExtra = lib.mkAfter (builtins.readFile ./bashrc);
+      profileExtra = lib.mkAfter (builtins.readFile ./profile);
     };
 
   };
@@ -62,6 +67,9 @@ with pkgs;
     (aspellWithDicts (ps: with ps; [ en es ]))
 
     figlet
+
+    sqlite
+    sqlite-interactive
 
     git
     gitAndTools.hub
@@ -79,9 +87,12 @@ with pkgs;
     wget
     curl
 
-    niv
+    cachix
+
     nixfmt
     nix-prefetch-git
     nix-prefetch-github
+
+    zlib
   ];
 }

@@ -1,0 +1,5 @@
+#!/bin/bash -x
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+nix-shell -I "nixpkgs=${DIR}/../nix" -p home-manager -p nix-direnv --run "home-manager switch --show-trace -I nixpkgs=${DIR}/../nix -f ${DIR}/../hosts/$(hostname)/default.nix"

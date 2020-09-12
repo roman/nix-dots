@@ -1,6 +1,4 @@
-
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
-
   # define utility function for interacting with vterm on emacs
   function vterm_printf() {
     if [ -n "$TMUX" ]; then

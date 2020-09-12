@@ -6,11 +6,10 @@ let
   sources = import ../nix/sources.nix;
 in
   {
-    imports = [ 
-      "${sources.home-manager}/nixos" 
-      ../modules  
+    imports = [
+      "${sources.home-manager}/nixos"
+      ../modules
       ./users.nix
       ./virtualisation.nix
     ];
-  
   }

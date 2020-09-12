@@ -175,7 +175,7 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Fira Code"
+   dotspacemacs-default-font '("Noto Mono"
                                :size 14
                                :weight normal
                                :width normal
@@ -439,7 +439,7 @@ dump."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  ;; (set-frame-font "Fira Code 14" nil t)
+  (set-frame-font "Noto Mono 14" nil t)
   (direnv-mode)
   (add-hook 'flycheck-before-syntax-check-hook 'direnv-update-environment)
   (add-hook 'lsp-before-initialize-hook 'direnv-update-environment)
