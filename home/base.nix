@@ -6,7 +6,6 @@ with pkgs;
 
   programs = {
 
-    # home-manager.enable = true;
     zoxide.enable = true;
     man.enable = true;
 
@@ -82,7 +81,7 @@ with pkgs;
     ripgrep
 
     htop
-    ytop
+    bottom
 
     wget
     curl

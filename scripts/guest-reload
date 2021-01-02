@@ -1,0 +1,4 @@
+#!/bin/bash -xe
+
+nix build --impure ".#homeManagerConfigurations.$USER.activationPackage" -o /tmp/guest-init-result
+/tmp/guest-init-result/activate

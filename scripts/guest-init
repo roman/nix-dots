@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPT_PATH="$(dirname "$SCRIPT")"
+DOTS_PATH="$(dirname "$SCRIPT_PATH")"
+
+echo "=== downloading nix"
+sudo curl -L https://nixos.org/nix/install | sh
+. /home/ubuntu/.nix-profile/etc/profile.d/nix.sh
+
+echo "=== installing nix flakes"
+nix-env -iA nixpkgs.nixFlakes
+
+echo "=== enabling nix flakes"
+sudo mkdir -p /etc/nix
+sudo bash -c "echo 'experimental-features = nix-command flakes' > /etc/nix/nix.conf"
+
+echo "=== linking nix-dots to global place"
+sudo rm -f /etc/config
+sudo ln -s "$(dirname $SCRIPT_PATH)" /etc/nix/dots
+
+echo "=== init submodules (spacemacs)"
+rm -rf $DOTS_PATH/home/spacemacs
+git submodule update --init

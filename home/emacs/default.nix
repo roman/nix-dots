@@ -6,6 +6,7 @@ let
   sources = import ../../nix/sources.nix;
 in {
   nixpkgs.overlays = [ (import sources.emacs-overlay) ];
+
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-nox;
@@ -19,10 +20,10 @@ in {
   };
 
   home.activation.emacs = execute ''
-    ln -sfT /etc/config/home/emacs/spacemacs-private/spacemacs ~/.spacemacs
-    ln -sfT /etc/config/home/emacs/spacemacs ~/.emacs.d
+    ln -sfT /etc/nix/dots/home/emacs/spacemacs-private/spacemacs ~/.spacemacs
+    ln -sfT /etc/nix/dots/home/emacs/spacemacs ~/.emacs.d
     rm -rf ~/.emacs.d/private
-    ln -sfT /etc/config/home/emacs/spacemacs-private ~/.emacs.d/private
+    ln -sfT /etc/nix/dots/home/emacs/spacemacs-private ~/.emacs.d/private
     emacs --batch -l ~/.emacs.d/init.el --eval "(message \"init\")"
   '';
 }
