@@ -24,3 +24,6 @@ sudo ln -s "$(dirname $SCRIPT_PATH)" /etc/nix/dots
 echo "=== init submodules (spacemacs)"
 rm -rf $DOTS_PATH/home/spacemacs
 git submodule update --init
+
+echo "=== install git version"
+nix-env -i git

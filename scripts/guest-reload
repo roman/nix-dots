@@ -1,4 +1,6 @@
 #!/bin/bash -xe
 
-nix build --impure ".#homeManagerConfigurations.$USER.activationPackage" -o /tmp/guest-init-result
+PROFILE="${1:-$USER}"
+
+nix build --impure ".#homeManagerConfigurations.$PROFILE.activationPackage" -o /tmp/guest-init-result --show-trace
 /tmp/guest-init-result/activate
