@@ -1,12 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
-with import ../../lib;
-
-let
-  sources = import ../../nix/sources.nix;
-in {
-  nixpkgs.overlays = [ (import sources.emacs-overlay) ];
-
+{
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-nox;
@@ -19,7 +13,7 @@ in {
     );
   };
 
-  home.activation.emacs = execute ''
+  home.activation.emacs = pkgs.hm-lib.dag.entryAfter [ "installPackages" ] ''
     ln -sfT /etc/nix/dots/home/emacs/spacemacs-private/spacemacs ~/.spacemacs
     ln -sfT /etc/nix/dots/home/emacs/spacemacs ~/.emacs.d
     rm -rf ~/.emacs.d/private

@@ -18,7 +18,7 @@ sudo mkdir -p /etc/nix
 sudo bash -c "echo 'experimental-features = nix-command flakes' > /etc/nix/nix.conf"
 
 echo "=== linking nix-dots to global place"
-sudo rm -f /etc/config
+sudo rm -f /etc/nix/dots
 sudo ln -s "$(dirname $SCRIPT_PATH)" /etc/nix/dots
 
 echo "=== init submodules (spacemacs)"
@@ -27,3 +27,9 @@ git submodule update --init
 
 echo "=== install git version"
 nix-env -i git
+# make sure home-manager git has more precedence than manually installed git
+nix-env --set-flag priority 6 git
+
+echo "=== move conflicting default files"
+mv ~/.profile ~/.profile.backup
+mv ~/.bashrc ~/.bashrc.backup

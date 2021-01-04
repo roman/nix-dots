@@ -10,21 +10,28 @@
   }; 
 
 
-  outputs = { self, nixpkgs, homeManager, emacs }: {
-    homeManagerConfigurations = {
-      ubuntu = homeManager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "/home/ubuntu";
-        username = "ubuntu";
+  outputs = { self, nixpkgs, homeManager, emacs }: 
+    let
+      hm-lib = super: self:
+        {
+          hm-lib = homeManager.lib.hm;
+        };
+    in
+      {
+        homeManagerConfigurations = {
+          ubuntu = homeManager.lib.homeManagerConfiguration {
+            system = "x86_64-linux";
+            homeDirectory = "/home/ubuntu";
+            username = "ubuntu";
 
-        configuration = { pkgs, lib, ... }: {
-          imports = [ ./home ];
-          nixpkgs = {
-            overlays = [ emacs.overlay ];
-            config = { allowUnfree = true; };
+            configuration = { pkgs, lib, ... }: {
+              imports = [ ./home ];
+              nixpkgs = {
+                overlays = [ emacs.overlay hm-lib ];
+                config = { allowUnfree = true; };
+              };
+            };
           };
         };
       };
-    };
-  };
 }
