@@ -7,7 +7,9 @@ DOTS_PATH="$(dirname "$SCRIPT_PATH")"
 
 echo "=== enabling nix flakes"
 sudo cp /etc/nixos/configuration.nix /etc/nixos/configuration.nix.backup
-sudo cat /etc/nixos/configuration.nix.backup | sed -e "s/import/nix = {\n    package = pkgs.nixFlakes;\n    extraOptions =  ''\n      experimental-features = nix-command flakes\n    '';\n  };\n\n  import/" > /etc/nixos/configuration.nix
+sudo cat /etc/nixos/configuration.nix.backup | sed -e "s/import/nix = {\n    package = pkgs.nixFlakes;\n    extraOptions =  ''\n      experimental-features = nix-command flakes\n    '';\n  };\n\n  import/" > configuration.nix.new
+sudo mv configuration.nix.new /etc/nixos/configuration.nix
+
 sudo nixos-rebuild switch
 
 echo "=== linking nix-dots to global place"
@@ -24,5 +26,5 @@ nix-env -i git
 nix-env --set-flag priority 6 git
 
 echo "=== move conflicting default files"
-mv ~/.profile ~/.profile.backup
-mv ~/.bashrc ~/.bashrc.backup
+mv ~/.profile ~/.profile.backup || true
+mv ~/.bashrc ~/.bashrc.backup || true
