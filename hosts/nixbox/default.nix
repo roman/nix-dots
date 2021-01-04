@@ -1,14 +1,24 @@
-{ config, pkgs, ... }:
+{ modulesPath, config, pkgs, ... }:
 
 {
   networking.hostName = "nixbox";
 
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-      /etc/nixos/hardware-builder.nix
+
+      "${modulesPath}/installer/scan/not-detected.nix"
+      # ./hardware-configuration.nix
       ../../system/vagrants
     ];
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
+  fileSystems."/".device = "/dev/disk/by-label/nixos";
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
