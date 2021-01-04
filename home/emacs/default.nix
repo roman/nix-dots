@@ -3,7 +3,7 @@
 {
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs-nox;
+    package = pkgs.zoo-emacs;
     extraPackages = (epkgs:
       [ epkgs.melpaPackages.vterm
         epkgs.melpaPackages.lsp-mode
