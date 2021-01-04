@@ -1,4 +1,9 @@
 #!/bin/sh
 
-export NIXOS_CONFIG="/etc/config/hosts/$(hostname)/default.nix" 
-nixos-rebuild switch --show-trace
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPT_PATH="$(dirname "$SCRIPT")"
+DOTS_PATH="$(dirname "$SCRIPT_PATH")"
+
+sudo nixos-rebuild switch --flake "$DOTS_PATH" --show-trace

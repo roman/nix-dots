@@ -1,13 +1,28 @@
 #!/bin/sh
 
-nix-channel --remove nixos
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+SCRIPT_PATH="$(dirname "$SCRIPT")"
+DOTS_PATH="$(dirname "$SCRIPT_PATH")"
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-pushd $DIR/..
-git submodule init
-git submodule update
-sudo ln -s "$(pwd)" /etc/config
-popd
+echo "=== enabling nix flakes"
+sudo cp /etc/nixos/configuration.nix /etc/nixos/configuration.nix.backup
+sudo cat /etc/nixos/configuration.nix.backup | sed -e "s/import/nix = {\n    package = pkgs.nixFlakes;\n    extraOptions =  ''\n      experimental-features = nix-command flakes\n    '';\n  };\n\n  import/" > /etc/nixos/configuration.nix
+sudo nixos-rebuild switch
+
+echo "=== linking nix-dots to global place"
+sudo rm -f /etc/nix/dots
+sudo ln -s "$(dirname $SCRIPT_PATH)" /etc/nix/dots
+ 
+echo "=== init submodules (spacemacs)"
+rm -rf $DOTS_PATH/home/spacemacs
+git submodule update --init
+
+echo "=== install git version"
+nix-env -i git
+# make sure home-manager git has more precedence than manually installed git
+nix-env --set-flag priority 6 git
+
+echo "=== move conflicting default files"
+mv ~/.profile ~/.profile.backup
+mv ~/.bashrc ~/.bashrc.backup
