@@ -1,0 +1,14 @@
+#!/bin/sh
+
+for f in $@; do
+  OUTPUT="$(nix-instantiate --eval --strict --json $f)"
+  if [ $OUTPUT != "[]" ]; then
+      for tc in "$(jq '.[]' <<< $OUTPUT)"; do
+          printf "\x1B[31mFAIL\x1B[0m \x1B[33m$(jq -r '.name' <<< $tc)\x1B[0m (file: $f)\n"
+          printf "expected:\n$(jq -r '.expected' <<< $tc)\n"
+          printf "result:\n$(jq -r '.result' <<< $tc)\n"
+      done
+  else
+      printf "\x1B[32mSUCCESS\x1B[0m (file: $f)\n"
+  fi
+done
