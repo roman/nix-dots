@@ -1,4 +1,5 @@
 # nix-utils installs binaries that make development of nix easier
+flakeInputs:
 { pkgs, lib, ... }:
 
 with pkgs;
