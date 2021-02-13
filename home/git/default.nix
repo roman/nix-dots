@@ -1,4 +1,5 @@
 # git installs git version control system and adds dotfiles configurations
+flakeInputs:
 { pkgs, ... }:
 
 {
