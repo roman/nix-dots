@@ -1,9 +1,11 @@
+# git installs git version control system and adds dotfiles configurations
 { pkgs, ... }:
 
 {
   home.packages = with pkgs; [
-    gitAndTools.git-ignore
+    git
     gitAndTools.hub
+    gitAndTools.git-ignore
   ];
 
   programs.git = {
@@ -22,19 +24,18 @@
       ci = "commit";
     };
 
-    # extraConfig = {
-    #   push = {
-    #     default = "current";
-    #     followTags = "true";
-    #   };
-    #   pull = {
-    #     default = "current";
-    #     rebase = "true";
-    #   };
-    #   rebase = { autosquash = "true"; };
-    # };
+    extraConfig = {
+      push = {
+        default = "current";
+        # followTags = "true";
+      };
+      pull = {
+        default = "current";
+        rebase = "true";
+      };
+      # rebase = { autosquash = "true"; };
+    };
 
     ignores = [ ".direnv/" ];
   };
 }
-

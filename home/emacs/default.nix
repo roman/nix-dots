@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{ homeManager, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.emacs = {
@@ -13,7 +14,8 @@
     );
   };
 
-  home.activation.emacs = pkgs.hm-lib.dag.entryAfter [ "installPackages" ] ''
+  ## home.activation.emacs = homeManager.lib.dag.entryAfter [ "installPackages" ] ''
+  home.activation.emacs = lib.dag.entryAfter [ "installPackages" ] ''
     ln -sfT /etc/nix/dots/home/emacs/spacemacs-private/spacemacs ~/.spacemacs
     ln -sfT /etc/nix/dots/home/emacs/spacemacs ~/.emacs.d
     rm -rf ~/.emacs.d/private
