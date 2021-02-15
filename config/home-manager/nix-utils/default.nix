@@ -12,6 +12,7 @@ with pkgs;
     # utlities to get SHAs for depedencies
     nix-prefetch-git
     nix-prefetch-github
+    nix-tree
 
     # utlity to add cache servers
     cachix

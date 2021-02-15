@@ -12,13 +12,6 @@
 
   outputs = inputs@{ self, nixpkgs, homeManager, emacs }:
     let
-      # we use general purpose package names and alter them between non-ui and ui
-      # setups (same recipe, different behavior)
-      guest-zoo-packages = super: self:
-        {
-          zoo-emacs = self.emacs-nox;
-        };
-
       # buildVagrantGuest is a function that creates a configuration that is
       # vagrant guest friendly (e.g. ubuntu machine in vagrant)
       buildVagrantGuest = username:
@@ -33,7 +26,7 @@
         configuration = args: {
           home.stateVersion = "20.09";
           nixpkgs = {
-            overlays = [ emacs.overlay guest-zoo-packages ];
+            overlays = [ emacs.overlay ];
             config = { allowUnfree = true; };
           };
           imports = with homeModules; [
@@ -45,7 +38,7 @@
           ];
         };
       };
-    
+
     in
       {
 
@@ -67,11 +60,11 @@
                   home-manager.users.vagrant = {
                     home.stateVersion = "20.09";
                     nixpkgs = {
-                      overlays = [ emacs.overlay guest-zoo-packages ];
+                      overlays = [ emacs.overlay ];
                       config = { allowUnfree = true; };
                     };
                     imports = with homeModules; [
-                      homeModules.emacs 
+                      homeModules.emacs
                       bash
                       git
                       nix-utils
@@ -81,6 +74,5 @@
               ];
           };
         };
-
       };
 }

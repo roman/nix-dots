@@ -54,7 +54,6 @@ with pkgs;
       bashrcExtra = lib.mkAfter (builtins.readFile ./bashrc);
       profileExtra = lib.mkAfter (builtins.readFile ./profile);
     };
-
   };
 
   home.packages = [
