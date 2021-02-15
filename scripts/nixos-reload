@@ -6,4 +6,4 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH="$(dirname "$SCRIPT")"
 DOTS_PATH="$(dirname "$SCRIPT_PATH")"
 
-sudo nixos-rebuild switch --flake "$DOTS_PATH" --show-trace
+sudo nixos-rebuild switch --flake "$DOTS_PATH" # --show-trace -v

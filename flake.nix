@@ -24,7 +24,7 @@
       buildVagrantGuest = username:
         homeManager.lib.homeManagerConfiguration (buildHomeManagerPlainConfig username);
 
-      homeModules = import ./home inputs;
+      homeModules = import ./config/home-manager inputs;
 
       buildHomeManagerPlainConfig = username: {
         inherit username;
@@ -39,14 +39,13 @@
           imports = with homeModules; [
             bash
             docker
-            # ./home/emacs
-            emacs
+            homeModules.emacs
             git
             nix-utils
           ];
         };
       };
-
+    
     in
       {
 
@@ -62,7 +61,7 @@
             modules =
               [
                 ./hosts/nixbox
-                ./modules/os/docker
+                ./config/os/docker
                 homeManager.nixosModules.home-manager
                 {
                   home-manager.users.vagrant = {
@@ -72,9 +71,9 @@
                       config = { allowUnfree = true; };
                     };
                     imports = with homeModules; [
+                      homeModules.emacs 
                       bash
                       git
-                      # emacs
                       nix-utils
                     ];
                   };

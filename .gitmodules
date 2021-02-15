@@ -1,3 +1,4 @@
-[submodule "home/emacs/spacemacs"]
-	path = home/emacs/spacemacs
+[submodule "vendor/spacemacs"]
+	path = vendor/spacemacs
 	url = https://github.com/syl20bnr/spacemacs.git
+	branch = develop
