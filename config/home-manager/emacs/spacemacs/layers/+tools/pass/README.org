@@ -1,0 +1,39 @@
+#+TITLE: Pass layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds integration with [[http://www.passwordstore.org/][pass]], the unix password manager.
+You must have ~pass~ installed and available in your path for this layer to
+function properly.
+
+** Features:
+- Use Spacemacs as your password manager
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =pass= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key bindings | Description                                   |
+|--------------+-----------------------------------------------|
+| ~SPC a a /~  | copy password using =helm-pass= or =ivy-pass= |
+| ~SPC a a y~  | copy password                                 |
+| ~SPC a a Y~  | copy and describe password                    |
+| ~SPC a a ?~  | describe password                             |
+| ~SPC a a g~  | generate new password                         |
+| ~SPC a a i~  | insert new password                           |
+| ~SPC a a c~  | edit password                                 |
+| ~SPC a a r~  | rename password                               |
+| ~SPC a a d~  | remove from password store                    |
+| ~SPC a a D~  | clear the password store                      |
+| ~SPC a a I~  | initialize the password store                 |
+| ~SPC a a w~  | open url                                      |
