@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
-let 
+let
 
-  sources = import ../../nix/sources.nix;
-  overlay-pkgs = import ../../pkgs;
+  # sources = import ../../nix/sources.nix;
+  # overlay-pkgs = import ../../pkgs;
 
 in {
 
@@ -21,14 +21,13 @@ in {
     ];
   };
 
-  home-manager.users.vagrant = { pkgs, ... }: {
-    imports =  [ ../../home ];
-    nixpkgs = {
-      overlays = [ overlay-pkgs ];
-      config.packageOverrides = with pkgs; {
-        
-      };
-    };
-  };
+  # home-manager.users.vagrant = { pkgs, ... }: {
+  #   # imports =  [ ../../home ];
+  #   nixpkgs = {
+  #     overlays = [ overlay-pkgs ];
+  #     config.packageOverrides = with pkgs; {
+  #     };
+  #   };
+  # };
 
 }

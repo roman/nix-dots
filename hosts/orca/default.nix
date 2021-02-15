@@ -2,10 +2,10 @@
 
 {
 
-  imports =
-    [ # Include my default home packages
-      ../../home
-    ];
+  # imports =
+  #   [ # Include my default home packages
+  #     ../../home
+  #   ];
 
   home.packages = with pkgs; [
     gcc

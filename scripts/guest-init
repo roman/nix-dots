@@ -8,7 +8,7 @@ DOTS_PATH="$(dirname "$SCRIPT_PATH")"
 
 echo "=== downloading nix"
 sudo curl -L https://nixos.org/nix/install | sh
-. /home/ubuntu/.nix-profile/etc/profile.d/nix.sh
+. "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
 echo "=== installing nix flakes"
 nix-env -iA nixpkgs.nixFlakes

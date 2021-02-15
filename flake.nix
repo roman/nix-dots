@@ -10,14 +10,8 @@
   };
 
 
-  outputs = { self, nixpkgs, homeManager, emacs }:
+  outputs = inputs@{ self, nixpkgs, homeManager, emacs }:
     let
-      # we use the home manager DAG API to inject scripts after installation
-      hm-lib = super: self:
-        {
-          hm-lib = homeManager.lib.hm;
-        };
-
       # we use general purpose package names and alter them between non-ui and ui
       # setups (same recipe, different behavior)
       guest-zoo-packages = super: self:
@@ -30,15 +24,23 @@
       buildVagrantGuest = username:
         homeManager.lib.homeManagerConfiguration (buildHomeManagerPlainConfig username);
 
+      homeModules = import ./home inputs;
+
       buildHomeManagerPlainConfig = username: {
         inherit username;
         system = "x86_64-linux";
         homeDirectory = "/home/${username}";
         configuration = args: {
           home.stateVersion = "20.09";
-          imports = [ ./home ];
+          imports = with homeModules; [
+            bash
+            docker
+            emacs
+            git
+            nix-utils
+          ];
           nixpkgs = {
-            overlays = [ emacs.overlay hm-lib guest-zoo-packages ];
+            overlays = [ emacs.overlay guest-zoo-packages ];
             config = { allowUnfree = true; };
           };
         };
@@ -59,15 +61,21 @@
             modules =
               [
                 ./hosts/nixbox
+                ./modules/os/docker
                 homeManager.nixosModules.home-manager
                 {
                   home-manager.users.vagrant = {
                     home.stateVersion = "20.09";
                     nixpkgs = {
-                      overlays = [ emacs.overlay hm-lib guest-zoo-packages ];
+                      overlays = [ emacs.overlay guest-zoo-packages ];
                       config = { allowUnfree = true; };
                     };
-                    imports = [ ./home ];
+                    imports = with homeModules; [
+                      bash
+                      git
+                      # emacs
+                      # nix-utils
+                    ];
                   };
                 }
               ];

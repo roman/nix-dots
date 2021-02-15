@@ -1,7 +1,5 @@
 { lib, config, pkgs, ... }:
 
-with lib;
-
 {
   # Enable Docker
   virtualisation = {
@@ -9,14 +7,8 @@ with lib;
       enable = true;
       enableOnBoot = false;
     };
-
-    # virtualbox = {
-    #   host.enable = false;
-    #   host.enableExtensionPack = false;
-    #   guest.enable = false;
-    # };
   };
 
   environment.systemPackages =
-    mkIf config.virtualisation.docker.enable [ pkgs.docker-compose ];
+    lib.mkIf config.virtualisation.docker.enable [ pkgs.docker-compose ];
 }

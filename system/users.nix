@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-let 
+let
 
   sources = import ../nix/sources.nix;
   overlay-pkgs = import ../pkgs;
@@ -21,11 +21,10 @@ in {
   };
 
   home-manager.users.roman = { pkgs, ... }: {
-    imports =  [ ../home ];
+    # imports =  [ ../home ];
     nixpkgs = {
       overlays = [ overlay-pkgs ];
       config.packageOverrides = with pkgs; {
-        
       };
     };
   };
