@@ -8,6 +8,6 @@
   };
 
   # Install docker-compose if docker is enabled
-  home.packages =
+  environment.systemPackages =
     lib.mkIf config.virtualisation.docker.enable [ pkgs.docker-compose ];
 }

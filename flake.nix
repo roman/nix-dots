@@ -32,17 +32,18 @@
         homeDirectory = "/home/${username}";
         configuration = args: {
           home.stateVersion = "20.09";
-          imports = with homeModules; [
-            bash
-            docker
-            emacs
-            git
-            nix-utils
-          ];
           nixpkgs = {
             overlays = [ emacs.overlay guest-zoo-packages ];
             config = { allowUnfree = true; };
           };
+          imports = with homeModules; [
+            bash
+            docker
+            # ./home/emacs
+            emacs
+            git
+            nix-utils
+          ];
         };
       };
 
@@ -74,7 +75,7 @@
                       bash
                       git
                       # emacs
-                      # nix-utils
+                      nix-utils
                     ];
                   };
                 }
