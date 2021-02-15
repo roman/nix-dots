@@ -2,8 +2,9 @@
 
 {
   imports = [
-    ../virtualisation.nix
     ./vagrant-network.nix
     ./vagrant-users.nix
+    ./vagrant-services.nix
+    ./vagrant-hardware.nix
   ];
 }
