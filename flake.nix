@@ -55,12 +55,7 @@
             homeManager.nixosModules.home-manager
             (import ./config/os/vagrant {
               overlays = [ emacs.overlay ];
-              modules = with homeModules; [
-                  homeModules.emacs
-                  bash
-                  git
-                  nix-utils
-                ];
+              modules = homeModules;
             })
             ./config/os/nix-flakes
             ./config/os/docker

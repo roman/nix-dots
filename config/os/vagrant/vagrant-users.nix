@@ -23,7 +23,12 @@
       overlays = overlays;
       config = { allowUnfree = true; };
     };
-    imports = modules;
+    imports = with modules; [
+      emacs
+      bash
+      git
+      nix-utils
+    ];
   };
 
 }
