@@ -51,8 +51,8 @@
         nixbox = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            (args: { networking.hostName = "nixbox"; })
             homeManager.nixosModules.home-manager
-            { networking.hostName = "nixbox"; }
             (import ./config/os/vagrant {
               overlays = [ emacs.overlay ];
               modules = with homeModules; [

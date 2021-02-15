@@ -1,11 +1,7 @@
+{ overlays, modules, ... }:
 { pkgs, ... }:
 
-let
-
-  # sources = import ../../nix/sources.nix;
-  # overlay-pkgs = import ../../pkgs;
-
-in {
+{
 
   users.users.vagrant = {
     description     = "Vagrant User";
@@ -21,13 +17,13 @@ in {
     ];
   };
 
-  # home-manager.users.vagrant = { pkgs, ... }: {
-  #   # imports =  [ ../../home ];
-  #   nixpkgs = {
-  #     overlays = [ overlay-pkgs ];
-  #     config.packageOverrides = with pkgs; {
-  #     };
-  #   };
-  # };
+  home-manager.users.vagrant = {
+    home.stateVersion = "20.09";
+    nixpkgs = {
+      overlays = overlays;
+      config = { allowUnfree = true; };
+    };
+    imports = modules;
+  };
 
 }
