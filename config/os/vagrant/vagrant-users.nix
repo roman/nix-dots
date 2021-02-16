@@ -25,12 +25,7 @@ in
 
   home-manager.users.vagrant = (hm.buildHomeManagerConfig {
     inherit overlays;
-    modules = with modules; [
-      emacs
-      bash
-      git
-      nix-utils
-    ];
+    modules = modules;
   });
 
 }

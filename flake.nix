@@ -49,7 +49,12 @@
         nixbox = vagrant.buildVagrantNixOS {
           hostname = "nixbox";
           overlays = [ emacsOverlay.overlay ];
-          modules = homeModules;
+          modules = with homeModules; [
+            bash
+            emacs
+            git
+            nix-utils
+          ];
         };
       };
 
