@@ -3,7 +3,7 @@
 
 let
 
-  hm = import ../../../lib/hm;
+  hm = import ../../../lib/hm.nix;
 
 in
 

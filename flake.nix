@@ -14,7 +14,7 @@
     let
 
       homeModules = import ./config/home-manager inputs;
-      vagrant = import ./lib/vagrant inputs;
+      vagrant = import ./lib/vagrant.nix inputs;
 
     in {
 

@@ -25,12 +25,12 @@ in
       modules = [
         (_: { networking.hostName = hostname; })
         homeManager.nixosModules.home-manager
-        (import ./config/os/vagrant {
+        (import ../config/os/vagrant {
           overlays = overlays;
           modules = modules;
         })
-        ./config/os/nix-flakes
-        ./config/os/docker
+        ../config/os/nix-flakes
+        ../config/os/docker
       ];
     };
 }
