@@ -23,13 +23,23 @@
 
         ubuntu = vagrant.buildVagrantUbuntu {
           username = "ubuntu";
-          modules = homeModules;
+          modules = with homeModules; [
+            bash
+            emacs
+            git
+            nix-utils
+          ];
           overlays = [ emacsOverlay.overlay ];
         };
 
         vagrant = vagrant.buildVagrantUbuntu {
           username = "vagrant";
-          modules = homeModules;
+          modules = with homeModules; [
+            bash
+            emacs
+            git
+            nix-utils
+          ];
           overlays = [ emacsOverlay.overlay ];
         };
 

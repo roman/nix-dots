@@ -2,7 +2,7 @@
 
 let
 
-  lib = import ../lib;
+  hm = import ../lib/hm.nix;
 
 in
 
@@ -13,8 +13,9 @@ in
   buildVagrantUbuntu = { modules, overlays, ... }:
     homeManager.lib.homeManagerConfiguration {
       username = "vagrant";
+      homeDirectory = "/home/vagrant";
       system = "x86_64-linux";
-      configuration = lib.buildHomeManagerConfig { inherit modules overlays; };
+      configuration = hm.buildHomeManagerConfig { inherit modules overlays; };
     };
 
   # buildVagrantNixOS is a function that creates a configuration that is vagrant
