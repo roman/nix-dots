@@ -1,50 +1,36 @@
 {
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     homeManager.url = "github:nix-community/home-manager/release-20.09";
     homeManager.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacs.url = "github:nix-community/emacs-overlay";
+    emacsOverlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, homeManager, emacs }:
+  outputs = inputs@{ self, nixpkgs, homeManager, emacsOverlay }:
     let
-      # buildVagrantGuest is a function that creates a configuration that is
-      # vagrant guest friendly (e.g. ubuntu machine in vagrant)
-      buildVagrantGuest = username:
-        homeManager.lib.homeManagerConfiguration
-        (buildHomeManagerPlainConfig username);
 
       homeModules = import ./config/home-manager inputs;
-
-      buildHomeManagerPlainConfig = username: {
-        inherit username;
-        system = "x86_64-linux";
-        homeDirectory = "/home/${username}";
-        configuration = args: {
-          home.stateVersion = "20.09";
-          nixpkgs = {
-            overlays = [ emacs.overlay ];
-            config = { allowUnfree = true; };
-          };
-          imports = with homeModules; [
-            bash
-            docker
-            homeModules.emacs
-            git
-            nix-utils
-          ];
-        };
-      };
+      zooLib = import ./lib inputs;
 
     in {
 
       homeManagerConfigurations = {
         # normally ubuntu and vagrant are names found in vagrant images
-        ubuntu-guest = buildVagrantGuest "ubuntu";
-        vagrant-guest = buildVagrantGuest "vagrant";
+
+        ubuntu = zooLib.buildVagrantGuestOS {
+          username = "ubuntu";
+          modules = homeModules;
+          overlays = [ emacsOverlay.overlay ];
+        };
+
+        vagrant = zooLib.buildVagrantGuestOS {
+          username = "vagrant";
+          modules = homeModules;
+          overlays = [ emacsOverlay.overlay ];
+        };
+
       };
 
       nixosConfigurations = {
@@ -54,7 +40,7 @@
             (args: { networking.hostName = "nixbox"; })
             homeManager.nixosModules.home-manager
             (import ./config/os/vagrant {
-              overlays = [ emacs.overlay ];
+              overlays = [ emacsOverlay.overlay ];
               modules = homeModules;
             })
             ./config/os/nix-flakes

@@ -1,6 +1,12 @@
 { overlays, modules, ... }:
 { pkgs, ... }:
 
+let
+
+  lib = import ../../../lib;
+
+in
+
 {
 
   users.users.vagrant = {
@@ -17,13 +23,9 @@
     ];
   };
 
-  home-manager.users.vagrant = {
-    home.stateVersion = "20.09";
-    nixpkgs = {
-      overlays = overlays;
-      config = { allowUnfree = true; };
-    };
-    imports = with modules; [
+  home-manager.users.vagrant = lib.buildHomeManagerConfig {
+    inherit overlays;
+    modules = with modules; [
       emacs
       bash
       git
