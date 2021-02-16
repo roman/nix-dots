@@ -3,7 +3,7 @@
 
 let
 
-  lib = import ../../../lib;
+  hm = import ../../../lib/hm;
 
 in
 
@@ -23,7 +23,7 @@ in
     ];
   };
 
-  home-manager.users.vagrant = lib.buildHomeManagerConfig {
+  home-manager.users.vagrant = (hm.buildHomeManagerConfig {
     inherit overlays;
     modules = with modules; [
       emacs
@@ -31,6 +31,6 @@ in
       git
       nix-utils
     ];
-  };
+  });
 
 }

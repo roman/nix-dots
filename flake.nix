@@ -1,4 +1,5 @@
 {
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -9,23 +10,24 @@
   };
 
   outputs = inputs@{ self, nixpkgs, homeManager, emacsOverlay }:
+
     let
 
       homeModules = import ./config/home-manager inputs;
-      zooLib = import ./lib inputs;
+      vagrant = import ./lib/vagrant inputs;
 
     in {
 
       homeManagerConfigurations = {
         # normally ubuntu and vagrant are names found in vagrant images
 
-        ubuntu = zooLib.buildVagrantGuestOS {
+        ubuntu = vagrant.buildVagrantUbuntu {
           username = "ubuntu";
           modules = homeModules;
           overlays = [ emacsOverlay.overlay ];
         };
 
-        vagrant = zooLib.buildVagrantGuestOS {
+        vagrant = vagrant.buildVagrantUbuntu {
           username = "vagrant";
           modules = homeModules;
           overlays = [ emacsOverlay.overlay ];
@@ -34,19 +36,12 @@
       };
 
       nixosConfigurations = {
-        nixbox = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            (args: { networking.hostName = "nixbox"; })
-            homeManager.nixosModules.home-manager
-            (import ./config/os/vagrant {
-              overlays = [ emacsOverlay.overlay ];
-              modules = homeModules;
-            })
-            ./config/os/nix-flakes
-            ./config/os/docker
-          ];
+        nixbox = vagrant.buildVagrantNixOS {
+          hostname = "nixbox";
+          overlays = [ emacsOverlay.overlay ];
+          modules = homeModules;
         };
       };
-    };
+    }
+
 }
