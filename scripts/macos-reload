@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+nix build .#darwinConfigurations.westeros.system -o /tmp/reload-home-manager
+sudo /tmp/reload-home-manager/activate
