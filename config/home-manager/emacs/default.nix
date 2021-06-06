@@ -3,23 +3,20 @@
 {
 
   # install emacs program
-  programs.emacs = lib.mkMerge [
-    {
-      package = pkgs.emacs27;
-      enable = true;
-      extraPackages = (epkgs:
-        builtins.attrValues
-        {
-          inherit (epkgs.melpaPackages) dap-mode lsp-mode lsp-ui lsp-grammarly vterm;
-        }
-      );
-    }
-  ];
-
-  home.packages = [
-    # add keytar to support lsp-grammarly
-    pkgs.keytar
-  ];
+  programs.emacs = {
+    enable = true;
+    extraPackages = (epkgs:
+      with epkgs.melpaPackages; [
+        vterm
+        lsp-mode
+        lsp-ui
+        dap-mode
+      ]
+    );
+    package = if (!config.xsession.enable && !pkgs.stdenv.isDarwin)
+      then pkgs.emacs-nox
+      else pkgs.emacs27;
+    };
 
   # run emacs as a server
   services.emacs.enable = true;
