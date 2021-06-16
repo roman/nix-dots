@@ -253,6 +253,9 @@
         (add-hook 'org-after-promote-entry-hook
                   'zoo/org-after-promote-entry-hook)
 
+        (spacemacs/set-leader-keys-for-major-mode 'org-mode
+          "bt" 'zoo/backup-ticket)
+
         (global-set-key (kbd "<f8> i") 'org-clock-in)
         (global-set-key (kbd "<f8> o") 'org-clock-out)
         (global-set-key (kbd "<f8> l") 'zoo/org-clock-in-last)
