@@ -446,9 +446,14 @@ Example output:
         (org-copy-subtree)
         (let ((org-file (f-join zoo-backup-tickets-dir
                                 (f-swap-ext heading-title "org"))))
+
           (if (file-exists-p org-file)
-              (delete-file org-file))
-          (message (format "Creating file %s" org-file))
+              (progn
+                (delete-file org-file)
+                (message (format "Recreating file %s" org-file)))
+            ;; else
+            (format "Creating new file %s" org-file))
+
           (save-window-excursion
             (find-file org-file)
             (zoo/org-insert-toc)
