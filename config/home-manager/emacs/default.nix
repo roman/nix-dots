@@ -5,6 +5,7 @@
   # install emacs program
   programs.emacs = lib.mkMerge [
     {
+      package = pkgs.emacs27;
       enable = true;
       extraPackages = (epkgs:
         with epkgs.melpaPackages; [
