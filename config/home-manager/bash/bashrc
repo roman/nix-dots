@@ -17,11 +17,6 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
       vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
   }
 
-  function clear(){
-      vterm_printf "51;Evterm-clear-scrollback";
-      tput clear;
-  }
-
   # If we are using starship, setup the vterm_prompt_end so that the current
   # directory gets updated everytime I change dirs on my terminal
   starship_precmd_user_func="vterm_prompt_end"
