@@ -84,6 +84,7 @@ values."
    dotspacemacs-additional-packages
    '(
      direnv
+     jsonnet-mode
      nix-mode
      dockerfile-mode
      evil-matchit
