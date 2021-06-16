@@ -8,13 +8,11 @@ in
 
 {
 
-  # buildVagrantUbuntu is a function that creates a configuration that is
+  # buildManagedUser is a function that creates a configuration that is
   # vagrant guest friendly on an Ubuntu OS
-  buildVagrantUbuntu = { modules, overlays, ... }:
+  buildManagedUser = { username, homeDirectory, system, modules, overlays, ... }:
     homeManager.lib.homeManagerConfiguration {
-      username = "vagrant";
-      homeDirectory = "/home/vagrant";
-      system = "x86_64-linux";
+      inherit username homeDirectory system;
       configuration = hm.buildHomeManagerConfig { inherit modules overlays; };
     };
 

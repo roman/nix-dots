@@ -21,8 +21,9 @@
       homeManagerConfigurations = {
         # normally ubuntu and vagrant are names found in vagrant images
 
-        ubuntu = vagrant.buildVagrantUbuntu {
+        ubuntu = vagrant.buildManagedUser {
           username = "ubuntu";
+          homeDirectory = "/home/ubuntu";
           modules = with homeModules; [
             bash
             emacs
@@ -32,7 +33,21 @@
           overlays = [ emacsOverlay.overlay ];
         };
 
-        vagrant = vagrant.buildVagrantUbuntu {
+        roman = vagrant.buildManagedUser {
+          username = "roman";
+          homeDirectory = "/home/roman";
+          system = "x86_64-linux";
+          modules = with homeModules; [
+            bash
+            emacs
+            git
+            nix-utils
+            ui
+          ];
+          overlays = [ emacsOverlay.overlay ];
+        };
+
+        vagrant = vagrant.buildManagedUser {
           username = "vagrant";
           modules = with homeModules; [
             bash
