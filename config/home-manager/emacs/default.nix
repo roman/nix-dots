@@ -32,7 +32,7 @@
 
   # initialization of spacemacs on install rather than on first execution
   home.activation.emacs = homeManager.lib.hm.dag.entryAfter [ "installPackages" ] ''
-    echo "setting up shit around"
+    echo "Configuring spacemacs"
     ln -sfT /etc/nix/dots/config/home-manager/emacs/spacemacs-private/spacemacs ~/.spacemacs
     ln -sfT /etc/nix/dots/vendor/spacemacs ~/.emacs.d
     rm -rf ~/.emacs.d/private
