@@ -355,8 +355,8 @@ Example output:
   (delete-other-windows)
 
   (let ((term-buffer
-         (or (get-buffer "*terminal*")
-             (nav/term))))
+         (or (get-buffer "*Default-vterm-1*")
+             (spacemacs/default-pop-shell))))
     (switch-to-buffer term-buffer))
 
   (split-window)
