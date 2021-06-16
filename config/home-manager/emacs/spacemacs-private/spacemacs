@@ -439,14 +439,14 @@ dump."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (set-frame-font "Noto Mono 14" nil t)
+  (set-frame-font "Fira Code 15" nil t)
   (direnv-mode)
   (add-hook 'flycheck-before-syntax-check-hook 'direnv-update-environment)
   (add-hook 'lsp-before-initialize-hook 'direnv-update-environment)
   (add-hook 'prog-mode-hook 'direnv-update-environment)
 
-  (set-face-attribute 'default nil :family "Fira Code")
-  (set-face-attribute 'default nil :height 150)
+  ;; (set-face-attribute 'default nil :family "Fira Code")
+  ;; (set-face-attribute 'default nil :height 150)
 
   (turn-on-fci-mode)
   (setq fci-rule-column 92)
