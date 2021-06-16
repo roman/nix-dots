@@ -410,6 +410,8 @@ Example output:
   (interactive)
   (save-excursion
     (beginning-of-buffer)
+    ;; org-insert-heading doesn't work on an empty file for some reason
+    (insert "\n")
     (org-insert-heading "Table Of Contents" nil t)
     (org-edit-headline "Table Of Contents")
     (org-set-tags ":TOC:"))
