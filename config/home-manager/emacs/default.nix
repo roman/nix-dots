@@ -16,10 +16,6 @@
         ]
       );
     }
-    # if we are not running xsession, install emacs-nox
-    (lib.mkIf (!config.xsession.enable) {
-      package = pkgs.emacs-nox;
-    })
   ];
 
   # run emacs as a server
