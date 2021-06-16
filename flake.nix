@@ -7,6 +7,7 @@
     homeManager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacsOverlay.url = "github:nix-community/emacs-overlay";
+    emacsOverlay.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, nixpkgs, homeManager, emacsOverlay }:
@@ -15,8 +16,12 @@
 
       homeModules = import ./config/home-manager inputs;
       vagrant = import ./lib/vagrant.nix inputs;
+      flakeOverlay = final: prev: {
+        keytar = import ./nix/keytar prev;
+      };
 
     in {
+
 
       homeManagerConfigurations = {
         # normally ubuntu and vagrant are names found in vagrant images
@@ -44,7 +49,7 @@
             nix-utils
             ui
           ];
-          overlays = [ emacsOverlay.overlay ];
+          overlays = [ emacsOverlay.overlay flakeOverlay ];
         };
 
         vagrant = vagrant.buildManagedUser {

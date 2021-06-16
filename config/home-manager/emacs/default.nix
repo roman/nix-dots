@@ -18,6 +18,11 @@
     }
   ];
 
+  home.packages = [
+    # add keytar to support lsp-grammarly
+    pkgs.keytar
+  ];
+
   # run emacs as a server
   services.emacs.enable = true;
 
