@@ -3,11 +3,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    homeManager.url = "github:nix-community/home-manager/release-20.09";
+    homeManager.url = "github:nix-community/home-manager/release-21.05";
     homeManager.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacsOverlay.url = "github:nix-community/emacs-overlay";
-    emacsOverlay.inputs.nixpkgs.follows = "nixpkgs";
+    emacsOverlay.url = "github:nix-community/emacs-overlay/f6768d390c0c6033735a7538150131fea8518ad6";
   };
 
   outputs = inputs@{ self, nixpkgs, homeManager, emacsOverlay }:
