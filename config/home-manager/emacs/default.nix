@@ -8,12 +8,10 @@
       package = pkgs.emacs27;
       enable = true;
       extraPackages = (epkgs:
-        with epkgs.melpaPackages; [
-          vterm
-          lsp-mode
-          lsp-ui
-          dap-mode
-        ]
+        builtins.attrValues
+        {
+          inherit (epkgs.melpaPackages) dap-mode lsp-mode lsp-ui lsp-grammarly vterm;
+        }
       );
     }
   ];
