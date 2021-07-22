@@ -39,7 +39,11 @@ with pkgs;
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      enableNixDirenvIntegration = true;
+    };
+
+    direnv.nix-direnv = {
+      enable = true;
+      enableFlakes = true;
     };
 
     bash = {
