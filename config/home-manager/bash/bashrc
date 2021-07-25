@@ -1,3 +1,8 @@
+# Ensure nix binaries are installed on the path
+source $HOME/.nix-profile/etc/profile.d/nix.sh
+
+# Enhance emacs functionality to change current
+# directory when moving between dirs in terminal
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
   # define utility function for interacting with vterm on emacs
   function vterm_printf() {
