@@ -72,7 +72,7 @@
 
 
 (defvar zoo-mode-line-in-use nil
-  "Private var to check usage of mode-line before changing")
+  "Private var to check usage of mode-line before changing.")
 
 (defvar zoo-mode-line-usage-delay 0.5
   "Number of secs before trying to modify the mode-line again.")

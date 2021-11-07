@@ -13,10 +13,12 @@
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the MIT License.
 
-;; Comentary:
+;;; Comentary:
 ;;
 ;; This is a work in progress
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Code:
 
 (require 'tramp)
 (require 'multi-term)
@@ -26,32 +28,31 @@
   "proctor-mode: Supervising and enforcing your \"test-driven\" since 2013")
 
 (defvar -proctor-mode-mode-line-in-use nil
-  "Private var to check usage of mode-line before changing")
+  "Private var to check usage of mode-line before changing.")
 
 (defvar -proctor-mode-mode-line-usage-delay 0.5
   "Number of secs before trying to modify the mode-line again.")
 
 (defvar proctor-mode-buffer nil
-  "Contains the buffer created by proctor")
+  "Contains the buffer created by proctor.")
 
 (defvar proctor-server-buffer nil
-  "Contains the buffer created by proctor/run-server")
+  "Contains the buffer created by proctor/run-server.")
 
 (defcustom proctor-mode-buffer-name "proctor"
-  "Specifies the name of the buffer created by proctor (the name
-is going to contain earmufs later on)."
+  "Specifies the name of the buffer created by proctor.
+
+The name is going to contain earmufs later on."
   :type 'string
   :group 'proctor-mode)
 
 (defcustom proctor-screen-session-name "proctor"
-  "Name of the GNU screen session name created for the proctor
-terminal"
+  "Name of the GNU screen session name created for the proctor terminal."
   :type 'string
   :group 'proctor-mode)
 
 (defcustom proctor-mode-command nil
-  "Command that gets executed. This variable is going to be buffer-local
-if setted with `proctor/set-command'."
+  "Command that gets executed. This variable is going to be buffer-local if setted with `proctor/set-command'."
   :group 'proctor-mode)
 
 (defcustom proctor-mode-working-directory nil
@@ -76,14 +77,12 @@ if setted with `proctor/set-command'."
   :group 'proctor-mode)
 
 (defcustom proctor-mode-success-message nil
-  "String that will be shwon in the notification when tests
-  execution is successful."
+  "String that will be shwon in the notification when tests execution is successful."
   :type 'string
   :group 'proctor-mode)
 
 (defcustom proctor-mode-failure-message nil
-  "String that will be shwon in the notification when tests
-  execution fails."
+  "String that will be shwon in the notification when tests execution fails."
   :type 'string
   :group 'proctor-mode)
 
@@ -122,18 +121,22 @@ if setted with `proctor/set-command'."
 ;; Hooks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun proctor/add-before-test-hook (fname)
+  "Add a hook to run FNAME everytime a file is saved."
   (interactive "sWhich function: ")
   (add-hook 'proctor-mode-before-test-hook fname t t))
 
 (defun proctor/add-after-test-hook (fname)
+  "Add a hook to run FNAME everytime a file is saved."
   (interactive "sWhich function: ")
   (add-hook 'proctor-mode-after-test-hook fname t t))
 
 (defun proctor/add-success-test-hook (fname)
+  "Add a hook to run FNAME everytime the test is successful."
   (interactive "sWhich function: ")
   (add-hook 'proctor-mode-success-test-hook fname t t))
 
 (defun proctor/add-fail-test-hook (fname)
+  "Add a hook to run FNAME everytime the test fails."
   (interactive "sWhich function: ")
   (add-hook 'proctor-mode-fail-test-hook fname t t))
 
@@ -149,7 +152,7 @@ if setted with `proctor/set-command'."
   (setq proctor-mode-command fname))
 
 (defun proctor/set-command (command)
-  "Tell proctor which command to run after save."
+  "Tell proctor which COMMAND to run after save."
   (interactive
    (list
     (read-string "Command: " proctor-mode-command)))
@@ -158,14 +161,14 @@ if setted with `proctor/set-command'."
   command)
 
 (defun proctor/reset-command ()
-  "Remove command on buffer"
+  "Remove command on buffer."
   (interactive)
   (setq proctor-mode-command nil))
 
 ;; Navigation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun proctor/switch-to-buffer ()
-  "Switch back and forth between proctor and the previous buffer"
+  "Switch back and forth between proctor and the previous buffer."
   (interactive)
   (if (string= (format "*%s*" proctor-mode-buffer-name) (buffer-name))
       (switch-to-buffer (other-buffer))
@@ -194,7 +197,9 @@ if setted with `proctor/set-command'."
                     color)))
 
 (defun proctor/notify (header msg &optional type)
-  "Prints a message using notify & message."
+  "Prints a message with a HEADER and a MSG in the body.
+
+TYPE can be success, failure or warning."
   (when (fboundp 'notify)
     (notify header msg))
   (let ((full-msg (format "%s - %s" header msg)))
@@ -208,7 +213,7 @@ if setted with `proctor/set-command'."
                           (t nil))))))
 
 (defun proctor/begin-notification ()
-  "Notifies when a test is about to run."
+  "Notify when a test is about to run."
   (interactive)
   (-proctor-mode-flash-mode-line 0.3 "purple")
   ;; (proctor/notify "proctor-mode"
@@ -217,7 +222,7 @@ if setted with `proctor/set-command'."
   )
 
 (defun proctor/succeed ()
-  "Notifies when a test succeeded."
+  "Notify when a test succeeded."
   (interactive)
   (-proctor-mode-flash-mode-line 0.6 "green")
   ;; (proctor/notify "proctor-mode"
@@ -228,14 +233,17 @@ if setted with `proctor/set-command'."
   )
 
 (defun proctor/warning (&optional msg)
-  "Notifies when a there is some sort of error/warning."
+  "Notify when a there is some sort of error/warning.
+
+MSG is displayed with the warning.
+"
   (interactive)
   (-proctor-mode-flash-mode-line 0.6 "yellow")
   (when msg
     (proctor/notify "proctor-mode" msg 'warning)))
 
 (defun proctor/fail (&optional buffername)
-  "Notifies when the test failed. "
+  "Notify when the test failed. "
   (interactive)
   (-proctor-mode-flash-mode-line 0.6 "red")
   ;; (proctor/notify "proctor-mode"
