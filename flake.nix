@@ -9,9 +9,10 @@
     homeManager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacsOverlay.url = "github:nix-community/emacs-overlay/f6768d390c0c6033735a7538150131fea8518ad6";
+    compute.url = "git+ssh://git@github.internal.digitalocean.com/digitalocean/cthulhu?rev=8685cb2d6885b28b0d8f64f20b46f5e8133bb958&ref=nixpkgs-compute&dir=docode/src/do/teams/compute";
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, homeManager, emacsOverlay }:
+  outputs = inputs@{ self, nixpkgs, darwin, homeManager, emacsOverlay, compute }:
 
     let
 
@@ -44,63 +45,65 @@
             };
           })
         ];
+
+        packages = {
+          inherit (compute.outputs.packages.x86_64-linux) orca-tools;
+        };
+
+        homeManagerConfigurations = {
+          # normally ubuntu and vagrant are names found in vagrant images
+
+          ubuntu = vagrant.buildManagedUser {
+            username = "ubuntu";
+            homeDirectory = "/home/ubuntu";
+            modules = with homeModules; [
+              bash
+              emacs
+              git
+              nix-utils
+            ];
+            overlays = [ emacsOverlay.overlay ];
+          };
+
+          roman = vagrant.buildManagedUser {
+            username = "roman";
+            homeDirectory = "/home/roman";
+            system = "x86_64-linux";
+            modules = with homeModules; [
+              bash
+              emacs
+              git
+              nix-utils
+              ui
+            ];
+            overlays = [ emacsOverlay.overlay flakeOverlay ];
+          };
+
+          vagrant = vagrant.buildManagedUser {
+            username = "vagrant";
+            modules = with homeModules; [
+              bash
+              emacs
+              git
+              nix-utils
+            ];
+            overlays = [ emacsOverlay.overlay ];
+          };
+
+        };
+
+        nixosConfigurations = {
+          nixbox = vagrant.buildVagrantNixOS {
+            hostname = "nixbox";
+            overlays = [ emacsOverlay.overlay ];
+            modules = with homeModules; [
+              bash
+              emacs
+              git
+              nix-utils
+            ];
+          };
+        };
       };
-
-      homeManagerConfigurations = {
-        # normally ubuntu and vagrant are names found in vagrant images
-
-        ubuntu = vagrant.buildManagedUser {
-          username = "ubuntu";
-          homeDirectory = "/home/ubuntu";
-          modules = with homeModules; [
-            bash
-            emacs
-            git
-            nix-utils
-          ];
-          overlays = [ emacsOverlay.overlay ];
-        };
-
-        roman = vagrant.buildManagedUser {
-          username = "roman";
-          homeDirectory = "/home/roman";
-          system = "x86_64-linux";
-          modules = with homeModules; [
-            bash
-            emacs
-            git
-            nix-utils
-            ui
-          ];
-          overlays = [ emacsOverlay.overlay flakeOverlay ];
-        };
-
-        vagrant = vagrant.buildManagedUser {
-          username = "vagrant";
-          modules = with homeModules; [
-            bash
-            emacs
-            git
-            nix-utils
-          ];
-          overlays = [ emacsOverlay.overlay ];
-        };
-
-      };
-
-      nixosConfigurations = {
-        nixbox = vagrant.buildVagrantNixOS {
-          hostname = "nixbox";
-          overlays = [ emacsOverlay.overlay ];
-          modules = with homeModules; [
-            bash
-            emacs
-            git
-            nix-utils
-          ];
-        };
-      };
-
     };
-
 }
