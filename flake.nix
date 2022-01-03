@@ -8,14 +8,13 @@
     homeManager.url = "github:nix-community/home-manager/release-21.05";
     homeManager.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacsOverlay.url = "github:nix-community/emacs-overlay/f6768d390c0c6033735a7538150131fea8518ad6";
-    compute.url = "git+ssh://git@github.internal.digitalocean.com/digitalocean/cthulhu?rev=8685cb2d6885b28b0d8f64f20b46f5e8133bb958&ref=nixpkgs-compute&dir=docode/src/do/teams/compute";
+    emacsOverlay.url = "github:nix-community/emacs-overlay";
+    cthulhu.url = "git+ssh://git@github.internal.digitalocean.com/digitalocean/cthulhu?rev=8685cb2d6885b28b0d8f64f20b46f5e8133bb958&ref=nixpkgs-compute";
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, homeManager, emacsOverlay, compute }:
+  outputs = inputs@{ self, nixpkgs, darwin, homeManager, emacsOverlay, cthulhu }:
 
     let
-
       homeModules = import ./config/home-manager inputs;
       hm = import ./lib/hm.nix;
       vagrant = import ./lib/vagrant.nix inputs;
@@ -47,8 +46,9 @@
         ];
 
         packages = {
-          inherit (compute.outputs.packages.x86_64-linux) orca-tools;
+          inherit (cthulhu.outputs.packages.x86_64-linux) orca-tools;
         };
+
 
         homeManagerConfigurations = {
           # normally ubuntu and vagrant are names found in vagrant images
