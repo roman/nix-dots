@@ -80,7 +80,7 @@ with pkgs;
     # fancy commands
     exa
     fd
-    ripgrep
+    # ripgrep
     htop
     bottom
 

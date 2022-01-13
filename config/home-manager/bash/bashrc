@@ -1,5 +1,5 @@
 # Ensure nix binaries are installed on the path
-source $HOME/.nix-profile/etc/profile.d/nix.sh
+# source $HOME/.nix-profile/etc/profile.d/nix.sh
 
 # Enhance emacs functionality to change current
 # directory when moving between dirs in terminal

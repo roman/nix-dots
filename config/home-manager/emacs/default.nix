@@ -1,16 +1,19 @@
 { homeManager, ... }:
 { pkgs, lib, config, ... }:
 
+let
+  emacsPkg = if (!config.xsession.enable && !pkgs.stdenv.isDarwin) then
+      pkgs.emacs-nox
+    else
+      pkgs.emacs27;
+in
 {
   # install emacs program
   programs.emacs = {
     enable = true;
     extraPackages =
       (epkgs: with epkgs.melpaPackages; [ vterm lsp-mode lsp-ui dap-mode ]);
-    package = if (!config.xsession.enable && !pkgs.stdenv.isDarwin) then
-      pkgs.emacs-nox
-    else
-      pkgs.emacs27;
+    package = emacsPkg;
   };
 
   # run emacs as a server
@@ -27,7 +30,7 @@
       ln -sfT ~/Projects/nix-dots/vendor/spacemacs ~/.spacemacs.d
       rm -rf ~/.spacemacs.d/private
       ln -sfT ~/Projects/nix-dots/config/home-manager/emacs/spacemacs-private ~/.spacemacs.d/private
-      emacs --batch -l ~/.emacs.d/init.el --eval "(message \"init\")"
+      ${emacsPkg}/bin/emacs --batch -l ~/.emacs.d/init.el --eval "(message \"init\")"
     '';
 }
 # // lib.optionalAttrs pkgs.stdenv.isLinux {
